@@ -1,25 +1,9 @@
-import React, { useState, useEffect } from "react";
-import * as axios from "axios";
+import React from "react";
 import "./styles.css";
+import { useAdvice } from './use-advice';
 
 export default function App() {
-  const [advice, setAdvice] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    fetchAnAdvice();
-  }, []);
-
-  const fetchAnAdvice = async () => {
-    try {
-      setIsLoading(true);
-      const { data } = await axios.get("https://api.adviceslip.com/advice");
-      setAdvice(data.slip.advice);
-      setIsLoading(false);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const [advice, isLoading, fetchAnAdvice ] = useAdvice();
 
   return (
     <div className="App">
